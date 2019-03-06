@@ -1,0 +1,91 @@
+C51 COMPILER V7.50   MAIN                                                                  05/09/2011 16:09:38 PAGE 1   
+
+
+C51 COMPILER V7.50, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: G:\KeilC51\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*******************************************************
+   2          ULN2003驱动5V减速步进电机程序
+   3          Target:STC89C52RC-40C
+   4          Crystal:12MHz
+   5          Author:战神单片机工作室
+   6          Platform:51&avr单片机最小系统板+ULN2003步进电机驱动套件
+   7          http://zsmcu.taobao.com   QQ:284083167
+   8          *******************************************************
+   9          接线方式:
+  10          IN1 ---- P00
+  11          IN2 ---- P01
+  12          IN3 ---- P02
+  13          IN4 ---- P03
+  14          +   ---- +5V
+  15          -   ---- GND
+  16          *********************/
+  17          #include<reg52.h>
+  18          #define uchar unsigned char
+  19          #define uint  unsigned int
+  20          #define MotorData P0                    //步进电机控制接口定义
+  21          uchar phasecw[4] ={0x08,0x04,0x02,0x01};//正转 电机导通相序 D-C-B-A
+  22          uchar phaseccw[4]={0x01,0x02,0x04,0x08};//反转 电机导通相序 A-B-C-D
+  23          uchar speed;
+  24          //ms延时函数
+  25          void Delay_xms(uint x)
+  26          {
+  27   1       uint i,j;
+  28   1       for(i=0;i<x;i++)
+  29   1        for(j=0;j<112;j++);
+  30   1      }
+  31          //顺时针转动
+  32          void MotorCW(void)
+  33          {
+  34   1       uchar i;
+  35   1       for(i=0;i<4;i++)
+  36   1        {
+  37   2         MotorData=phasecw[i];
+  38   2         Delay_xms(speed);//转速调节
+  39   2        }
+  40   1      }
+  41          //停止转动
+  42          void MotorStop(void)
+  43          {
+  44   1       MotorData=0x00;
+  45   1      }
+  46          //主函数
+  47          void main(void)
+  48          {
+  49   1       uint i;
+  50   1       Delay_xms(50);//等待系统稳定
+  51   1       speed=4;
+  52   1       while(1)
+  53   1       {
+  54   2       for(i=0;i<10;i++)
+  55   2        {
+C51 COMPILER V7.50   MAIN                                                                  05/09/2011 16:09:38 PAGE 2   
+
+  56   3         MotorCW();  //顺时针转动
+  57   3        }  
+  58   2        speed++;     //减速 
+  59   2        if(speed>25)  
+  60   2        {
+  61   3         speed=4;    //重新开始减速运动
+  62   3         MotorStop();
+  63   3         Delay_xms(500);
+  64   3        }  
+  65   2       }
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    106    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
