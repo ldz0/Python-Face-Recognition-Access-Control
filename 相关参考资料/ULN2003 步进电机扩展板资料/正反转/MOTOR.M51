@@ -1,0 +1,165 @@
+BL51 BANKED LINKER/LOCATER V5.12                                                        05/09/2011  16:09:06  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V5.12, INVOKED BY:
+G:\KEILC51\C51\BIN\BL51.EXE main.obj TO MOTOR RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  G:\KEILC51\C51\LIB\C51S.LIB (?C_STARTUP)
+  G:\KEILC51\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  MOTOR (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0008H     UNIT         ?DT?MAIN
+            IDATA   0010H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0041H     UNIT         ?PR?MAIN?MAIN
+            CODE    00D0H     0029H     UNIT         ?PR?_DELAY_XMS?MAIN
+            CODE    00F9H     000DH     UNIT         ?C_INITSEG
+            CODE    0106H     000CH     UNIT         ?PR?MOTORCW?MAIN
+            CODE    0112H     000CH     UNIT         ?PR?MOTORCCW?MAIN
+            CODE    011EH     0004H     UNIT         ?PR?MOTORSTOP?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   MOTOR (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN
+  +--> ?PR?_DELAY_XMS?MAIN
+  +--> ?PR?MOTORCW?MAIN
+  +--> ?PR?MOTORSTOP?MAIN
+  +--> ?PR?MOTORCCW?MAIN
+
+?PR?MOTORCW?MAIN
+  +--> ?PR?_DELAY_XMS?MAIN
+
+?PR?MOTORCCW?MAIN
+  +--> ?PR?_DELAY_XMS?MAIN
+
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/09/2011  16:09:06  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  MOTOR (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  C:00D9H         PUBLIC        _Delay_xms
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:008FH         PUBLIC        main
+  C:0106H         PUBLIC        MotorCW
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:011EH         PUBLIC        MotorStop
+  D:0008H         PUBLIC        phaseccw
+  D:00C8H         PUBLIC        T2CON
+  D:000CH         PUBLIC        phasecw
+  C:0112H         PUBLIC        MotorCCW
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0030
+  -------         ENDPROC       L?0030
+  -------         PROC          _DELAY_XMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:00D9H         LINE#         24
+  C:00D9H         LINE#         25
+  C:00D9H         LINE#         27
+  C:00E3H         LINE#         28
+  C:00F8H         LINE#         29
+  -------         ENDPROC       _DELAY_XMS
+  -------         PROC          MOTORCW
+  -------         DO            
+  D:0001H         SYMBOL        i
+  -------         ENDDO         
+  C:0106H         LINE#         31
+  C:0106H         LINE#         32
+  C:0106H         LINE#         34
+  C:0108H         LINE#         35
+  C:0108H         LINE#         36
+  C:010AH         LINE#         37
+  C:010DH         LINE#         38
+  C:0111H         LINE#         39
+  -------         ENDPROC       MOTORCW
+  -------         PROC          MOTORCCW
+  -------         DO            
+  D:0001H         SYMBOL        i
+  -------         ENDDO         
+  C:0112H         LINE#         41
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/09/2011  16:09:06  PAGE 3
+
+
+  C:0112H         LINE#         42
+  C:0112H         LINE#         44
+  C:0114H         LINE#         45
+  C:0114H         LINE#         46
+  C:0116H         LINE#         47
+  C:0119H         LINE#         48
+  C:011DH         LINE#         49
+  -------         ENDPROC       MOTORCCW
+  -------         PROC          MOTORSTOP
+  C:011EH         LINE#         51
+  C:011EH         LINE#         52
+  C:011EH         LINE#         53
+  C:0121H         LINE#         54
+  -------         ENDPROC       MOTORSTOP
+  -------         PROC          MAIN
+  -------         DO            
+  D:0082H         SYMBOL        i
+  -------         ENDDO         
+  C:008FH         LINE#         56
+  C:008FH         LINE#         57
+  C:008FH         LINE#         59
+  C:0096H         LINE#         60
+  C:0096H         LINE#         61
+  C:0096H         LINE#         62
+  C:0099H         LINE#         63
+  C:0099H         LINE#         64
+  C:009CH         LINE#         65
+  C:00A7H         LINE#         66
+  C:00AAH         LINE#         67
+  C:00B1H         LINE#         68
+  C:00B6H         LINE#         69
+  C:00B6H         LINE#         70
+  C:00B9H         LINE#         71
+  C:00C4H         LINE#         72
+  C:00C7H         LINE#         73
+  C:00CEH         LINE#         74
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+Program Size: data=17.0 xdata=0 code=290
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
